@@ -1,7 +1,9 @@
 #Running Conversion Calculator
 #Author: Yash Hooda
 #Date Created: 02/11/2023
-#This Python Program calculates the Running pace, distance, or time and predicts race time. It can also predict your running training paces.
+#This Python Program calculates the Running pace, distance, or time and predicts race time. It can also predict your running training paces. 
+# You can also calculate V02 max in this project.
+
 
 import math
 
@@ -62,9 +64,12 @@ calculate(choice)
 choice2 = input("Do you want to predict your race times? (y/n): ")
 if choice2 == "y":
     
+    #Enter current running time and current running distance
     runningtime = input("Enter your current running time (in minutes): ")
     runningdistance = input("Enter your current running distance (in miles): ")
+    #Enter your goal race distance (in miles)
     predictedracedistance = input("Enter your goal race distance (in miles): ")
+    #Calculate your predicted race time 
     predictedracetime = float(runningtime) * pow(float(predictedracedistance)/float(runningdistance), 1.06)
     predictedracetime = str(predictedracetime)
     predictedracedistance = str(predictedracedistance)
@@ -76,13 +81,16 @@ if choice2 == "y":
     
     
 else:
+    #Print new line
     print(' ')
     
+#Calculate training paces
 choice3 = input('Do you want to calculate your training paces? (y/n): ')
 if choice3 == "y":
-    
+    #Use 1 mile race time to calculate training paces using statistics and data analaysis
     predictedracetime = float(predictedracetime)
     predictedracetime = float(runningtime) * pow(float(1)/float(runningdistance), 1.06)
+    #print out and predict training paces using stats
     print('Your training paces are the following: ')
     easyrunpace = 1.50 * predictedracetime
     print('Your Easy Run Pace is: ' + str(easyrunpace) + " minutes per mile")
@@ -96,11 +104,34 @@ if choice3 == "y":
     print('Your Long Run Pace is: ' + str(longrunpace) + " minutes per mile")
     print(' ')
     
-    print('Thank you for using Running Conversion Calculator! Good luck on your running and THE GRIND NEVER STOPS!')
     
-else:
-    print('Thank you for using Running Conversion Calculator! Good luck on your running and THE GRIND NEVER STOPS!')
     
-
+#Calculate V02 max levels 
+choice4 = input('Do you want to know your VO2 max levels? (y/n): ')
+if choice4 == "y":
+    #Use predicted 1.5 mile race time to calculate V02 max 
+    predictedracetime = float(runningtime) * pow(float(1.5)/float(runningdistance), 1.06)
+    testcompletiontime = predictedracetime
+    
+    #Ask for gender 
+    choice5 = input('What is your gender? (Enter M for Male, F for Female): ')
+    if choice5 == "M":
+        gender = 1
+    elif choice5 == "F":
+        gender = 0
+    
+    #Enter body weight
+    choice6 = input('Please enter your body weight (in pounds): ')
+    choice6 = float(choice6)
+    bodyweight = choice6
+    #Calculate V02 max
+    v02max = 88.02 + (3.716 * gender) - (0.0753 * bodyweight) - (2.767 * testcompletiontime)
+    v02max = str(v02max)
+    #Predict V02 max with 90% confidence level
+    print('Your v02max is estimated to be: ' + v02max + ' mlkg')
+    print('DISCLAIMER: Please understand that this test has an accuracy prediction of 90% and a standard error of 2.8 mlkg. This test is not 100% accurate.')
+    print('Thank you for using Running Conversion Calculator! Good luck on your running and THE GRIND NEVER STOPS!')
             
-        
+else:
+    #Ending message for program
+    print('Thank you for using Running Conversion Calculator! Good luck on your running and THE GRIND NEVER STOPS!')
